@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Stag Times</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>The Stag Times</h1>
+        <p>from <span style="color:blue;">WAT</span></p>
+
+        <ul>
+            <li class="current" data-pdf="PDFs/2026-july.pdf">July '26</li>
+            <li data-pdf="PDFs/2026-june.pdf">June '26</li>
+            <li data-pdf="PDFs/2026-may.pdf">May '26</li>
+        </ul>
+    </header>
+
+    <main>
+        <div class="pdf-container" id="pdf-container"></div>
+    </main>
+
+    <!-- PDF.js -->
+    <script type="module">
+        import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs";
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs";
+
+        const pdfContainer = document.getElementById("pdf-container");
+        const pdfLinks = document.querySelectorAll("header ul li");
+
+        let currentPdf = "PDFs/2026-july.pdf";
+        let pdfDocument = null;
+
+        async function loadPdf(pdfPath) {
+            currentPdf = pdfPath;
+            pdfDocument = await pdfjsLib.getDocument(currentPdf).promise;
+            await renderAllPages();
+        }
+
+        async function renderAllPages() {
+            pdfContainer.innerHTML = "";
+
+            for (let pageNumber = 1; pageNumber <= pdfDocument.numPages; pageNumber++) {
+                const page = await pdfDocument.getPage(pageNumber);
+
+                const pageWrapper = document.createElement("div");
+                pageWrapper.className = "pdf-page";
+
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                pageWrapper.appendChild(canvas);
+                pdfContainer.appendChild(pageWrapper);
+
+                const containerWidth = pdfContainer.clientWidth;
+                const unscaledViewport = page.getViewport({ scale: 1 });
+                const scale = containerWidth / unscaledViewport.width;
+                const viewport = page.getViewport({ scale: scale });
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                }).promise;
+            }
+        }
+
+        pdfLinks.forEach((item) => {
+            item.addEventListener("click", () => {
+                pdfLinks.forEach((link) => link.classList.remove("current"));
+                item.classList.add("current");
+
+                const pdfFile = item.dataset.pdf;
+                loadPdf(pdfFile);
+            });
+        });
+
+        window.addEventListener("resize", () => {
+            if (pdfDocument) {
+                renderAllPages();
+            }
+        });
+
+        loadPdf(currentPdf);
+    </script>
+</body>
+</html>
