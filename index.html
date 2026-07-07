@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,40 +9,16 @@
 </head>
 
 <body>
-    <main>
-        <div class="pdf-container">
-            <iframe
-                id="pdf-viewer"
-                src="PDFS/2026-july.pdf#view=fitH"
-                title="The Stag Times PDF viewer">
-            </iframe>
-        </div>
-    </main>
-
-    <footer>
-        <h1>The Stag Times</h1>
-        <p>from <span style="color:blue;">WAT</span></p>
-
+    <header>
         <ul>
-            <li class="current" data-pdf="PDFS/2026-june.pdf">Vol. 3 - June '26</li>
-            <li data-pdf="PDFS/2026-may.pdf">Vol. 2 - May '26</li>
-            <li data-pdf="PDFS/2026-april.pdf">Vol. 1 - April '26</li>
+            <li class="current">June '26</li>
+            <li><a href="2026-05.html">May '26</a></li>
+            <li><a href="2026-04.html">April '26</a></li>
         </ul>
-    </footer>
+    </header>
 
-    <script>
-        const pdfViewer = document.getElementById("pdf-viewer");
-        const pdfLinks = document.querySelectorAll("footer ul li");
-
-        pdfLinks.forEach((item) => {
-            item.addEventListener("click", () => {
-                pdfLinks.forEach((link) => link.classList.remove("current"));
-                item.classList.add("current");
-
-                const pdfFile = item.dataset.pdf;
-                pdfViewer.src = pdfFile + "#view=fitH";
-            });
-        });
-    </script>
+    <main class="newsletter-pages">
+        <img src="newsletters/2026-06/page1.png" alt="The Stag Times June 2026 page 1">
+    </main>
 </body>
 </html>
