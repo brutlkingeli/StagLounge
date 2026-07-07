@@ -76,7 +76,9 @@ body {
   display: grid;
   grid-template-columns: 1fr min(45rem, 90%) 1fr;
   margin: 0;
+  min-height: 100vh;
 }
+
 body > * {
   grid-column: 2;
 }
@@ -106,39 +108,65 @@ body > header p {
   font-family: var(--serif-font)
 }
 
-body > header ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 5px;
-  background-color: #333333;
-  display: flex;
-}
-
-body > header ul li {
-  display: block;
-  color: white;
-  padding: 14px 16px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-body > header ul li,
-       header ul li.current {
-  background-color: #111111;
-}
-
 /* Add a little padding to ensure spacing is correct between content and header nav */
 main {
-  padding-top: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 body > footer {
-  margin-top: 4rem;
-  padding: 2rem 1rem 1.5rem 1rem;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  text-align: center;
-  border-top: var(--border-width) solid var(--border);
+    background-color: var(--accent-bg);
+    border-top: var(--border-width) solid var(--border);
+    text-align: center;
+    padding: 1rem 0.5rem 2rem 0.5rem;
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+
+body > footer h1 {
+    max-width: 1200px;
+    margin: 1rem auto;
+    font-family: var(--serif-font);
+}
+
+body > footer p {
+    max-width: 40rem;
+    margin: 1rem auto;
+    font-family: var(--serif-font);
+}
+
+body > footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px;
+    background-color: #333333;
+    display: flex;
+    justify-content: center;
+}
+
+body > footer ul li {
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body > footer ul li:hover,
+body > footer ul li.current {
+    background-color: #111111;
+}
+
+@media only screen and (max-width: 720px) {
+    footer ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    footer ul li {
+        flex: 1 1 auto;
+        text-align: center;
+    }
 }
 
 /* Format headers */
@@ -803,21 +831,16 @@ div.notice p:last-of-type {
 
 .pdf-container {
     width: min(100%, 950px);
+    height: 85vh;
     margin: 1.5rem auto;
-    background: var(--bg);
-}
-
-.pdf-page {
-    width: 100%;
-    margin: 0 auto 1.5rem auto;
-}
-
-.pdf-page canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
     background: white;
+}
+
+.pdf-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
 }
 
 header ul li {
