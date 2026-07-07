@@ -105,3 +105,17 @@ main {
         white-space: nowrap;
     }
 }
+
+.download-footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #333333;
+}
+
+.download-footer a,
+.download-footer a:visited,
+.download-footer a:hover,
+.download-footer a:active {
+    color: white;
+    text-decoration: none;
+}
