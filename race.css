@@ -1,0 +1,150 @@
+:root {
+    --page: #fbf8f3;
+    --brown: #563927;
+    --red: #980019;
+    --portrait-size: 128px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--page);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+body {
+    margin: 0;
+    color: #1d1713;
+    background: var(--page);
+}
+
+.race-page {
+    width: min(92%, 1280px);
+    margin: 1.5rem auto 4rem;
+}
+
+h1 {
+    margin: 0;
+    padding: 1rem 1.5rem;
+    color: #fff;
+    background: var(--brown);
+    font-size: clamp(1.85rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.return-link {
+    display: block;
+    margin-top: 1.25rem;
+    border: 4px solid var(--red);
+    padding: 0.35rem 1rem;
+    color: var(--red);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.return-link:hover,
+.return-link:focus-visible {
+    color: #fff;
+    background: var(--red);
+}
+
+.return-link:focus-visible {
+    outline: 3px solid var(--brown);
+    outline-offset: 3px;
+}
+
+.leaderboard {
+    display: grid;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.race-entry {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: var(--portrait-size);
+}
+
+.stat-bar {
+    flex: 0 0 min(var(--score), calc(100% - var(--portrait-size)));
+    height: 2.15rem;
+    background: var(--red);
+}
+
+.portrait,
+.portrait-placeholder {
+    width: var(--portrait-size);
+    height: var(--portrait-size);
+    flex: 0 0 var(--portrait-size);
+}
+
+.portrait {
+    position: relative;
+    z-index: 1;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    background: transparent;
+}
+
+.portrait[hidden] {
+    display: none;
+}
+
+.portrait-placeholder {
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--red);
+    color: var(--red);
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.25rem;
+    font-weight: 800;
+}
+
+.portrait-placeholder + .portrait {
+    margin-left: calc(-1 * var(--portrait-size));
+}
+
+@media (max-width: 640px) {
+    :root {
+        --portrait-size: 80px;
+    }
+
+    .race-page {
+        width: min(94%, 1280px);
+        margin-top: 0.75rem;
+    }
+
+    .leaderboard {
+        gap: 0.75rem;
+        margin-top: 2rem;
+    }
+
+    .stat-bar {
+        height: 1.5rem;
+    }
+
+    .portrait-placeholder {
+        border-width: 2px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .return-link {
+        transition: none;
+    }
+}
